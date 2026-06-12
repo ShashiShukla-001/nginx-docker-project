@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+.venv/
+
+# Environment variables (never commit real secrets)
+.env
+
+# Docker local overrides
+docker-compose.override.yml
+
+# SSL certificates (never commit private keys)
+nginx/certs/
+
+# Database files
+*.sqlite3
+*.db
+
+# Logs
+*.log
+
+# Temporary / editor files
+*.bak
+*.tmp
+*.swp
+*.swo
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Archives
+*.tar.gz
+*.zip

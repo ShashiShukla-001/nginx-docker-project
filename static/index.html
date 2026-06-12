@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nginx Docker Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: #38bdf8;
+            letter-spacing: 0.05em;
+        }
+
+        header p {
+            margin-top: 0.5rem;
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.25rem 0.75rem;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            color: #38bdf8;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .card h2 {
+            font-size: 1rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.65rem 1rem;
+            background: #0ea5e9;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 1rem;
+        }
+
+        button:hover {
+            background: #38bdf8;
+        }
+
+        pre {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 0.85rem;
+            color: #38bdf8;
+            min-height: 80px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        footer {
+            margin-top: 3rem;
+            color: #475569;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        footer span {
+            color: #38bdf8;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Nginx Docker Project</h1>
+        <p>FastAPI secured behind Nginx reverse proxy</p>
+        <span class="badge">Served directly by Nginx</span>
+    </header>
+
+    <div class="grid">
+
+        <div class="card">
+            <h2>Health Check</h2>
+            <button onclick="ping('/health')">GET /health</button>
+            <pre id="health-result">Click to ping...</pre>
+        </div>
+
+        <div class="card">
+            <h2>API Info</h2>
+            <button onclick="ping('/api/info')">GET /api/info</button>
+            <pre id="info-result">Click to ping...</pre>
+        </div>
+
+    </div>
+
+    <footer>
+        This page is served by <span>Nginx</span> —
+        the API responses come from <span>FastAPI</span>
+    </footer>
+
+    <script>
+        async function ping(endpoint) {
+            const resultId = endpoint === '/health' ? 'health-result' : 'info-result';
+            const el = document.getElementById(resultId);
+
+            el.textContent = 'Loading...';
+
+            try {
+                const res = await fetch(endpoint);
+                const data = await res.json();
+                el.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                el.textContent = 'Error: ' + err.message;
+            }
+        }
+    </script>
+
+</body>
+</html>
